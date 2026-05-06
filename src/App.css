@@ -1,0 +1,458 @@
+.app-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.main-layout {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+.left-panel {
+  flex: 1;
+  background: rgb(253, 56, 97);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-right: 1px solid rgb(209, 209, 209);
+}
+
+.right-panel {
+  flex: 1;
+  background-color: white;
+  color: black;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  align-items: center;
+  padding-top: 10px;
+}
+
+.info-container-compact {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Alinea los hijos al inicio (izquierda) */
+  padding-left: 10px;      /* Reduce esto si quieres que esté más pegado al borde */
+  width: 100%;             /* Asegura que ocupe todo el ancho disponible */
+  box-sizing: border-box; 
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 35px; /* Espaciado generoso para las secciones de abajo */
+  margin-bottom: 15px;
+}
+
+.info-container-compact .section-header:first-of-type {
+  margin-top: 10px; /* Mucho más pegado al margen de arriba */
+}
+
+.accent-line {
+  width: 4px;
+  height: 20px;
+  background-color: #00d4ff;
+  border-radius: 2px;
+  flex-shrink: 0; /* Evita que la línea se deforme */
+}
+
+.right-panel-title {
+  font-size: 0.95rem;
+  color: #333333; /* Gris oscuro */
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin: 0;
+  line-height: 1;
+  font-weight: 700;
+  /* Un pequeño brillo celeste opcional al texto */
+  text-shadow: 0 0 5px rgba(0, 212, 255, 0.2); 
+}
+
+.compact-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding-left: 10px; /* Ajusta este valor para alinear exactamente con el título */
+  justify-content: flex-start; /* Fuerza a las píldoras a empezar desde la izquierda */
+  width: 100%;
+}
+
+.badge-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.badge-with-tag {
+  display: flex;
+  align-items: center;
+  height: 28px;
+  border-radius: 18px; /* Cápsula completa */
+  overflow: hidden; /* Corta el fondo para que siga la curva */
+  min-width: 120px; /* Un poco más ancha para que quepa el x4 */
+  flex-shrink: 0;
+}
+
+.mult-tag {
+  font-size: 0.65rem;
+  font-weight: bold;
+  color: #aaa;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 2px 4px;
+  border-radius: 4px;
+}
+
+.mult-tag-extension {
+  background-color: #333333; /* Gris oscuro de los títulos */
+  color: #ffffff;            /* Texto blanco */
+  font-size: 0.7rem;
+  font-weight: 800;
+  height: 28px; /* Altura que coincida con la pildora */
+  padding: 0 10px 0 8px; /* Padding a la derecha */
+  border-radius: 0 18px 18px 0; /* Borde redondeado solo a la derecha */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* Un borde sutil para que se vea que es una pieza unida */
+  border-left: 1px solid rgba(255, 255, 255, 0.1); 
+}
+
+.poke-img {
+  max-width: 180px;
+  max-height: 180px;
+  filter: drop-shadow(2px 4px 6px rgba(0, 0, 0, 0.2));
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.poke-header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.btn-shiny {
+  gap: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 140px;
+  padding: 8px 15px;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+  background: rgb(241, 196, 15);
+  color: #242424;
+  box-shadow: 0 0 15px rgba(241, 196, 15, 0.5);
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.btn-shiny.active {
+  border: 1px solid rgb(241, 196, 15);
+  background: transparent;
+  color: rgb(241, 196, 15);
+}
+.btn-shiny.active:hover {
+  background: rgba(241, 196, 15, 0.1);
+}
+
+.shiny-icon-btn {
+  width: 18px;
+  height: 18px;
+  animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.poke-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: 20px;
+}
+
+.poke-stats-container {
+  width: 75%;
+  margin-top: 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.stat-row {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.stat-label {
+  width: 85px;
+  text-transform: capitalize;
+  font-size: 0.8rem;
+  color: white;
+  text-align: left;
+}
+
+.stat-bar-wrapper {
+  flex: 1;
+  margin: 0 15px;
+  background-color: #3d3d3d;
+  height: 8px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.stat-bar-fill {
+  height: 100%;
+  background-color: #70d6ff;
+  border-radius: 10px;
+  transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.stat-value {
+  width: 35px;
+  text-align: right;
+  font-family: "Courier New", Courier, monospace;
+  font-weight: bold;
+  color: white;
+}
+
+.poke-title-name {
+  text-transform: capitalize;
+  margin-bottom: 10px;
+}
+
+/* El marco blanco exterior */
+.pokedex-screen-frame {
+  background-color: #f1f1f1; /* Blanco grisáceo tipo plástico */
+  width: 90%;
+  max-width: 350px;
+  border-radius: 10px 10px 10px 40px; /* Esquina inferior izquierda más redondeada */
+  padding: 20px;
+  position: relative;
+  box-shadow: inset -4px -4px 0px #b3b3b3; /* Efecto 3D sutil */
+  margin-bottom: 20px;
+}
+
+/* Los puntos rojos superiores */
+.screen-dots {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 10px;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  background-color: #ff0000;
+  border-radius: 50%;
+  border: 1px solid #555;
+}
+
+.screen-display {
+  background-color: #56585a;
+  border-radius: 5px;
+  border: 3px solid #b3b3b3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+}
+
+.screen-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 15px;
+  position: relative;
+}
+
+.big-dot {
+  width: 20px;
+  height: 20px;
+  background-color: #ff0000;
+  border-radius: 50%;
+  border: 2px solid #555;
+}
+
+.speaker-grill {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.speaker-grill span {
+  width: 40px;
+  height: 3px;
+  background-color: #555;
+  border-radius: 2px;
+}
+
+@keyframes popIn {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.types-container {
+  display: flex;
+  flex-wrap: wrap; /* Esto permite que si no caben, pasen a la fila de abajo */
+  gap: 10px;
+  justify-content: center; /* Centra las pastillas en el panel derecho */
+  margin-top: 15px;
+}
+
+.type-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 6px;
+  padding-right: 12px;
+  gap: 8px;
+  border-radius: 18px;
+  min-width: 100px;
+  height: 28px;
+  flex-shrink: 0;
+}
+
+.type-badge-main {
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+  padding-right: 10px;
+  gap: 8px;
+  height: 100%;
+  flex: 1; /* Ocupa el espacio restante */
+  justify-content: flex-start; /* Icono y texto a la izquierda */
+}
+
+.type-icon {
+  width: 20px;
+  height: 20px;
+  filter: drop-shadow(
+    1px 1px 2px rgba(0, 0, 0, 0.3)
+  ); /* Para que resalte el símbolo */
+}
+
+.weakness-container {
+  display: flex;
+  flex-wrap: wrap; /* Para que bajen si son muchos */
+  gap: 10px;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+/* Versión pequeña de la pastilla para debilidades */
+.type-badge.min {
+  padding: 4px; /* Solo el círculo con el icono */
+  min-width: auto;
+  border-radius: 50%; /* Las hacemos circulares */
+}
+
+.type-icon-circle {
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.type-badge.min .type-icon-circle {
+  width: 30px;
+  height: 30px;
+}
+
+.type-badge.min span {
+  display: none; /* Escondemos el texto en debilidades para que sea minimalista */
+}
+
+
+.weakness-group {
+  margin-bottom: 10px; /* Menos espacio entre grupos x2, x4, etc */
+}
+
+.multiplier-label {
+  font-size: 0.7rem;
+  color: #ccc;
+  margin-top: 5px;
+  margin-bottom: 2px;
+  text-transform: uppercase;
+}
+
+.mult-badge-inner {
+  background-color:rgb(36, 36, 36); /* Gris oscuro de los títulos */
+  color: #ffffff;            /* Texto blanco */
+  font-size: 0.65rem;
+  font-weight: 800;
+  height: 20px;
+  min-width: 28px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: auto; /* Empuja la etiqueta al extremo derecho */
+  padding: 0 4px;
+}
+
+.mult-tag-extension {
+  background-color: #56585a;
+  color: #ffffff;
+  font-size: 0.7rem;
+  font-weight: 800;
+  height: 100%;
+  padding: 0 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.type-text {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: white;
+  line-height: 1;
+}
+
+
+/* --- 1. COLORES UNIVERSALES --- */
+/* Añadimos .type-badge-main para que la cápsula con x4 tenga color */
+.type-badge.fire, .type-badge-main.fire { background-color: #ff4422; }
+.type-badge.water, .type-badge-main.water { background-color: #3399ff; }
+.type-badge.grass, .type-badge-main.grass { background-color: #77cc55; }
+.type-badge.electric, .type-badge-main.electric { background-color: #ffcc33; color: #333; }
+.type-badge.ice, .type-badge-main.ice { background-color: #66ccff; }
+.type-badge.fighting, .type-badge-main.fighting { background-color: #bb5544; }
+.type-badge.poison, .type-badge-main.poison { background-color: #aa5599; }
+.type-badge.ground, .type-badge-main.ground { background-color: #ddbb55; }
+.type-badge.flying, .type-badge-main.flying { background-color: #8899ff; }
+.type-badge.psychic, .type-badge-main.psychic { background-color: #ff5599; }
+.type-badge.bug, .type-badge-main.bug { background-color: #aabb22; }
+.type-badge.rock, .type-badge-main.rock { background-color: #bbaa66; }
+.type-badge.ghost, .type-badge-main.ghost { background-color: #6666bb; }
+.type-badge.dragon, .type-badge-main.dragon { background-color: #7766ee; }
+.type-badge.dark, .type-badge-main.dark { background-color: #775544; }
+.type-badge.steel, .type-badge-main.steel { background-color: #aaaabb; }
+.type-badge.fairy, .type-badge-main.fairy { background-color: #ee99ee; }
+.type-badge.normal, .type-badge-main.normal { background-color: #aaaa99; }

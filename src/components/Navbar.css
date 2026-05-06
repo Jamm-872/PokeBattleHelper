@@ -1,0 +1,92 @@
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; 
+  padding: 0 30px;
+  height: 70px;
+  background-color: rgb(36, 36, 36);
+  color: white;
+}
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1; 
+  justify-content: flex-start;
+}
+
+.brand-icon {
+  width: 40px; 
+  height: 40px;
+  object-fit: contain;
+}
+
+.search-container {
+  position: relative;
+  width: 400px; 
+  display: flex;
+  justify-content: center; 
+}
+
+.navbar-spacer {
+  flex: 1; 
+}
+
+.search-container input {
+  width: 100%;
+  padding: 10px 15px;
+  border-radius: 20px; 
+  border: 1px solid rgb(68, 68, 68);
+  background-color: rgb(26, 26, 26);
+  color: white;
+  outline: none;
+}
+
+.sugerencias-lista {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background: white;
+  color: black;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-radius: 0 0 8px 8px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  z-index: 1000; /* Para que flote por encima de todo */
+
+ 
+  max-height: 250px; 
+  overflow-y: auto;  
+  overflow-x: hidden; 
+}
+
+.sugerencias-lista::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sugerencias-lista::-webkit-scrollbar-thumb {
+  background: rgb(253, 56, 97);
+  border-radius: 10px;
+}
+
+.sugerencia-item {
+  padding: 10px;
+  cursor: pointer;
+  border-bottom: 1px solid white;
+  text-transform: capitalize;
+  display: flex;
+  align-items: center;
+}
+
+.sugerencia-item:hover {
+  background-color: rgb(209, 209, 209);
+}
+
+.pokemon-id {
+  font-weight: bold;
+  margin-right: 10px;
+  color: rgb(136, 136, 136);
+}

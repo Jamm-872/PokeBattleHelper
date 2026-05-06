@@ -1,0 +1,11 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden; /* Prohibe el scroll en la ventana principal */
+  height: 100%;    /* Asegura que ocupe el alto total sin pasarse */
+}
+
+#root {
+  height: 100vh;   /* El contenedor de React también debe medir lo mismo que la pantalla */
+  overflow: hidden; 
+}
