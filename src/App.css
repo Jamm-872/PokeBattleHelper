@@ -28,17 +28,46 @@
   display: flex;
   flex-direction: column;
   padding: 20px;
-  align-items: center;
   padding-top: 10px;
+  overflow: hidden;
+}
+
+.info-scroll-box {
+  background-color: #e8e8e8;
+  border-radius: 12px;
+  padding: 16px 20px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  max-height: 45vh;
+  margin-bottom: 10px;
+
+  scrollbar-width: thin;
+  scrollbar-color: #fd3861 #e8e8e8;
+}
+.info-scroll-box::-webkit-scrollbar {
+  width: 4px;
+}
+
+.info-scroll-box::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.info-scroll-box::-webkit-scrollbar-thumb {
+  background-color: #fd386180;
+  border-radius: 10px;
+}
+
+.info-scroll-box::-webkit-scrollbar-thumb:hover {
+  background-color: #fd3861;
 }
 
 .info-container-compact {
   display: flex;
   flex-direction: column;
   align-items: flex-start; /* Alinea los hijos al inicio (izquierda) */
-  padding-left: 10px;      /* Reduce esto si quieres que esté más pegado al borde */
-  width: 100%;             /* Asegura que ocupe todo el ancho disponible */
-  box-sizing: border-box; 
+  padding-left: 10px; /* Reduce esto si quieres que esté más pegado al borde */
+  width: 100%; /* Asegura que ocupe todo el ancho disponible */
+  box-sizing: border-box;
 }
 
 .section-header {
@@ -70,7 +99,7 @@
   line-height: 1;
   font-weight: 700;
   /* Un pequeño brillo celeste opcional al texto */
-  text-shadow: 0 0 5px rgba(0, 212, 255, 0.2); 
+  text-shadow: 0 0 5px rgba(0, 212, 255, 0.2);
 }
 
 .compact-row {
@@ -109,7 +138,7 @@
 
 .mult-tag-extension {
   background-color: #333333; /* Gris oscuro de los títulos */
-  color: #ffffff;            /* Texto blanco */
+  color: #ffffff; /* Texto blanco */
   font-size: 0.7rem;
   font-weight: 800;
   height: 28px; /* Altura que coincida con la pildora */
@@ -119,7 +148,7 @@
   justify-content: center;
   align-items: center;
   /* Un borde sutil para que se vea que es una pieza unida */
-  border-left: 1px solid rgba(255, 255, 255, 0.1); 
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .poke-img {
@@ -387,7 +416,6 @@
   display: none; /* Escondemos el texto en debilidades para que sea minimalista */
 }
 
-
 .weakness-group {
   margin-bottom: 10px; /* Menos espacio entre grupos x2, x4, etc */
 }
@@ -401,8 +429,8 @@
 }
 
 .mult-badge-inner {
-  background-color:rgb(36, 36, 36); /* Gris oscuro de los títulos */
-  color: #ffffff;            /* Texto blanco */
+  background-color: rgb(36, 36, 36); /* Gris oscuro de los títulos */
+  color: #ffffff; /* Texto blanco */
   font-size: 0.65rem;
   font-weight: 800;
   height: 20px;
@@ -434,25 +462,257 @@
   color: white;
   line-height: 1;
 }
+/* --- HABILIDADES --- */
 
+.ability-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 10px 20px;
+  height: auto;
+  width: 130px;
+  border-radius: 8px;
+  background-color: #e8e8e8;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.ability-name {
+  font-size: 0.75rem; /* igual que .type-text */
+  font-weight: 700;
+  text-transform: uppercase; /* igual que .type-text */
+  letter-spacing: 0px;
+  color: #333;
+}
+
+.ability-badge.hidden-ability .ability-name {
+  color: white;
+}
+.ability-badge:hover {
+  background-color: #d0d0d0;
+}
+
+.ability-badge.active {
+  border-color: #00d4ff;
+  background-color: #e0f9ff;
+}
+
+.ability-badge.hidden-ability {
+  background-color: #2e2e3e;
+  color: white;
+}
+
+.ability-badge.hidden-ability:hover {
+  background-color: #3e3e50;
+}
+
+.ability-badge.hidden-ability.active {
+  border-color: #a78bfa;
+  background-color: #3b3060;
+}
+
+.hidden-tag {
+  font-size: 0.55rem;
+  font-weight: 800;
+  color: #a78bfa;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border: 1px solid #a78bfa;
+  border-radius: 4px;
+  padding: 1px 4px;
+}
+
+.ability-description {
+  margin-top: 10px;
+  padding: 12px 16px;
+  background-color: #f5f5f5;
+  border-left: 3px solid #00d4ff;
+  border-radius: 0 8px 8px 0;
+  font-size: 0.82rem;
+  color: #444;
+  line-height: 1.5;
+  width: 90%;
+  animation: fadeIn 0.2s ease;
+}
+/* --- MODAL HABILIDAD --- */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  animation: fadeIn 0.15s ease;
+}
+
+.modal-card {
+  background: white;
+  border-radius: 16px;
+  padding: 28px 32px;
+  max-width: 380px;
+  width: 90%;
+  position: relative;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+.modal-close {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  background: none;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  color: #999;
+  transition: color 0.2s;
+}
+
+.modal-close:hover {
+  color: #333;
+}
+
+.modal-title {
+  font-size: 1rem;
+  font-weight: 800;
+  text-transform: capitalize;
+  color: #333;
+  margin: 0 0 14px 0;
+  display: flex;
+  align-items: center;
+}
+
+.modal-desc {
+  font-size: 0.88rem;
+  color: #555;
+  line-height: 1.6;
+  margin: 0;
+}
+.section-habilidades .accent-line {
+  background-color: #fd3861;
+}
+.section-evoluciones .accent-line {
+  background-color: rgb(241, 196, 15);
+}
+
+/* EVOLUCIONES */
+.evo-chain {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  padding-left: 10px;
+}
+
+.evo-chain-item {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.evo-slot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.evo-sprite {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+}
+
+.evo-name {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: capitalize;
+  color: #333;
+}
+
+.evo-arrow {
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: #888;
+  margin-bottom: 20px;
+  line-height: 1;
+}
 
 /* --- 1. COLORES UNIVERSALES --- */
-/* Añadimos .type-badge-main para que la cápsula con x4 tenga color */
-.type-badge.fire, .type-badge-main.fire { background-color: #ff4422; }
-.type-badge.water, .type-badge-main.water { background-color: #3399ff; }
-.type-badge.grass, .type-badge-main.grass { background-color: #77cc55; }
-.type-badge.electric, .type-badge-main.electric { background-color: #ffcc33; color: #333; }
-.type-badge.ice, .type-badge-main.ice { background-color: #66ccff; }
-.type-badge.fighting, .type-badge-main.fighting { background-color: #bb5544; }
-.type-badge.poison, .type-badge-main.poison { background-color: #aa5599; }
-.type-badge.ground, .type-badge-main.ground { background-color: #ddbb55; }
-.type-badge.flying, .type-badge-main.flying { background-color: #8899ff; }
-.type-badge.psychic, .type-badge-main.psychic { background-color: #ff5599; }
-.type-badge.bug, .type-badge-main.bug { background-color: #aabb22; }
-.type-badge.rock, .type-badge-main.rock { background-color: #bbaa66; }
-.type-badge.ghost, .type-badge-main.ghost { background-color: #6666bb; }
-.type-badge.dragon, .type-badge-main.dragon { background-color: #7766ee; }
-.type-badge.dark, .type-badge-main.dark { background-color: #775544; }
-.type-badge.steel, .type-badge-main.steel { background-color: #aaaabb; }
-.type-badge.fairy, .type-badge-main.fairy { background-color: #ee99ee; }
-.type-badge.normal, .type-badge-main.normal { background-color: #aaaa99; }
+/*.type-badge-main para que la cápsula con x4 tenga color */
+.type-badge.fire,
+.type-badge-main.fire {
+  background-color: #ff4422;
+}
+.type-badge.water,
+.type-badge-main.water {
+  background-color: #3399ff;
+}
+.type-badge.grass,
+.type-badge-main.grass {
+  background-color: #77cc55;
+}
+.type-badge.electric,
+.type-badge-main.electric {
+  background-color: #ffcc33;
+  color: #333;
+}
+.type-badge.ice,
+.type-badge-main.ice {
+  background-color: #66ccff;
+}
+.type-badge.fighting,
+.type-badge-main.fighting {
+  background-color: #bb5544;
+}
+.type-badge.poison,
+.type-badge-main.poison {
+  background-color: #aa5599;
+}
+.type-badge.ground,
+.type-badge-main.ground {
+  background-color: #ddbb55;
+}
+.type-badge.flying,
+.type-badge-main.flying {
+  background-color: #8899ff;
+}
+.type-badge.psychic,
+.type-badge-main.psychic {
+  background-color: #ff5599;
+}
+.type-badge.bug,
+.type-badge-main.bug {
+  background-color: #aabb22;
+}
+.type-badge.rock,
+.type-badge-main.rock {
+  background-color: #bbaa66;
+}
+.type-badge.ghost,
+.type-badge-main.ghost {
+  background-color: #6666bb;
+}
+.type-badge.dragon,
+.type-badge-main.dragon {
+  background-color: #7766ee;
+}
+.type-badge.dark,
+.type-badge-main.dark {
+  background-color: #775544;
+}
+.type-badge.steel,
+.type-badge-main.steel {
+  background-color: #aaaabb;
+}
+.type-badge.fairy,
+.type-badge-main.fairy {
+  background-color: #ee99ee;
+}
+.type-badge.normal,
+.type-badge-main.normal {
+  background-color: #aaaa99;
+}

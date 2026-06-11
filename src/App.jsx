@@ -15,6 +15,9 @@ function App() {
     x025: [],
     x0: [],
   });
+  const [habilidades, setHabilidades] = useState([]);
+  const [habilidadActiva, setHabilidadActiva] = useState(null);
+  const [cadenaEvolutiva, setCadenaEvolutiva] = useState([]);
 
   const renderEfectividad = (lista, multiplicadorTexto) => {
     return lista.map((tipo) => {
@@ -141,6 +144,68 @@ function App() {
     calcularEfectividades();
   }, [pokemonSeleccionado]);
 
+  useEffect(() => {
+    const cargarHabilidades = async () => {
+      if (!pokemonSeleccionado) return;
+      setHabilidadActiva(null);
+
+      const promesas = pokemonSeleccionado.abilities.map(async (a) => {
+        const res = await fetch(a.ability.url);
+        const data = await res.json();
+        const entradaEs = data.flavor_text_entries.find(
+          (e) => e.language.name === "es",
+        );
+        const entradaEn = data.flavor_text_entries.find(
+          (e) => e.language.name === "en",
+        );
+        return {
+          nombre: a.ability.name,
+          esOculta: a.is_hidden,
+          descripcion: entradaEs //  busca español
+            ? entradaEs.flavor_text
+            : entradaEn // si no hay, inglés
+              ? entradaEn.flavor_text
+              : "Sin descripción disponible.",
+        };
+      });
+
+      const resultado = await Promise.all(promesas);
+      setHabilidades(resultado);
+    };
+
+    cargarHabilidades();
+  }, [pokemonSeleccionado]);
+
+  useEffect(() => {
+    const cargarEvoluciones = async () => {
+      if (!pokemonSeleccionado) return;
+      setCadenaEvolutiva([]);
+
+      const speciesRes = await fetch(
+        `https://pokeapi.co/api/v2/pokemon-species/${pokemonSeleccionado.id}`,
+      );
+      const speciesData = await speciesRes.json();
+
+      const cadenaRes = await fetch(speciesData.evolution_chain.url);
+      const cadenaData = await cadenaRes.json();
+
+      const fases = [];
+      let actual = cadenaData.chain;
+
+      while (actual) {
+        fases.push({
+          nombre: actual.species.name,
+          sprite: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${actual.species.url.split("/").slice(-2, -1)[0]}.png`,
+        });
+        actual = actual.evolves_to[0] ?? null;
+      }
+
+      setCadenaEvolutiva(fases);
+    };
+
+    cargarEvoluciones();
+  }, [pokemonSeleccionado]);
+
   return (
     <div className="app-container">
       <Navbar onSearch={handleSearch} listaMaestra={listaMaestra} />
@@ -229,62 +294,140 @@ function App() {
 
         <section className="right-panel">
           {pokemonSeleccionado && (
-            <div className="info-container-compact">
-              {/* SECCIÓN TIPOS */}
-              <div className="section-header">
+            <>
+              {/* CAJA SCROLLEABLE */}
+              <div className="info-scroll-box">
+                <div className="section-header">
+                  <span className="accent-line"></span>
+                  <h2 className="right-panel-title">Tipos</h2>
+                </div>
+                <div className="compact-row">
+                  {pokemonSeleccionado.types.map((t) => (
+                    <div
+                      key={t.type.name}
+                      className={`type-badge ${t.type.name}`}
+                    >
+                      <div className="type-icon-circle">
+                        <img
+                          src={ICONOS_TIPOS[t.type.name]}
+                          alt={t.type.name}
+                          className="type-icon"
+                        />
+                      </div>
+                      <span className="type-text">{t.type.name}</span>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="section-header">
+                  <span className="accent-line"></span>
+                  <h2 className="right-panel-title">Debilidades</h2>
+                </div>
+                <div className="compact-row">
+                  {renderEfectividad(tablaEfectividad.x4, "x4")}
+                  {renderEfectividad(tablaEfectividad.x2, "x2")}
+                </div>
+
+                <div className="section-header">
+                  <span className="accent-line"></span>
+                  <h2 className="right-panel-title">Resistencias</h2>
+                </div>
+                <div className="compact-row">
+                  {renderEfectividad(tablaEfectividad.x05, "1/2")}
+                  {renderEfectividad(tablaEfectividad.x025, "1/4")}
+                </div>
+
+                {tablaEfectividad.x0.length > 0 && (
+                  <>
+                    <div className="section-header">
+                      <span className="accent-line"></span>
+                      <h2 className="right-panel-title">Inmunidades</h2>
+                    </div>
+                    <div className="compact-row">
+                      {renderEfectividad(tablaEfectividad.x0, "0")}
+                    </div>
+                  </>
+                )}
+              </div>
+
+              {/* HABILIDADES - FIJO */}
+              <div className="section-header section-habilidades">
                 <span className="accent-line"></span>
-                <h2 className="right-panel-title">Tipos</h2>
+                <h2 className="right-panel-title">Habilidades</h2>
               </div>
               <div className="compact-row">
-                {pokemonSeleccionado.types.map((t) => (
+                {habilidades.map((hab) => (
                   <div
-                    key={t.type.name}
-                    className={`type-badge ${t.type.name}`}
+                    key={hab.nombre}
+                    className={`ability-badge ${hab.esOculta ? "hidden-ability" : ""} ${habilidadActiva === hab.nombre ? "active" : ""}`}
+                    onClick={() =>
+                      setHabilidadActiva(
+                        habilidadActiva === hab.nombre ? null : hab.nombre,
+                      )
+                    }
                   >
-                    <div className="type-icon-circle">
-                      <img
-                        src={ICONOS_TIPOS[t.type.name]}
-                        alt={t.type.name}
-                        className="type-icon"
-                      />
-                    </div>
-                    <span className="type-text">{t.type.name}</span>
+                    {hab.esOculta && <span className="hidden-tag">OCULTA</span>}
+                    <span className="ability-name">
+                      {hab.nombre.replace(/-/g, " ")}
+                    </span>
                   </div>
                 ))}
               </div>
 
-              {/* SECCIÓN DEBILIDADES */}
-              <div className="section-header">
+              {/* EVOLUCIONES - FIJO */}
+              <div className="section-header section-evoluciones">
                 <span className="accent-line"></span>
-                <h2 className="right-panel-title">Debilidades</h2>
+                <h2 className="right-panel-title">Evoluciones</h2>
               </div>
-              <div className="compact-row">
-                {renderEfectividad(tablaEfectividad.x4, "x4")}
-                {renderEfectividad(tablaEfectividad.x2, "x2")}
-              </div>
-
-              {/* SECCIÓN RESISTENCIAS */}
-              <div className="section-header">
-                <span className="accent-line"></span>
-                <h2 className="right-panel-title">Resistencias</h2>
-              </div>
-              <div className="compact-row">
-                {renderEfectividad(tablaEfectividad.x05, "1/2")}
-                {renderEfectividad(tablaEfectividad.x025, "1/4")}
-              </div>
-
-              {/* SECCIÓN INMUNIDADES (Solo se muestra si existen) */}
-              {tablaEfectividad.x0.length > 0 && (
-                <>
-                  <div className="section-header">
-                    <span className="accent-line"></span>
-                    <h2 className="right-panel-title">Inmunidades</h2>
+              <div className="evo-chain">
+                {cadenaEvolutiva.map((fase, i) => (
+                  <div key={fase.nombre} className="evo-chain-item">
+                    <div className="evo-slot">
+                      <img
+                        src={fase.sprite}
+                        alt={fase.nombre}
+                        className="evo-sprite"
+                      />
+                      <span className="evo-name">{fase.nombre}</span>
+                    </div>
+                    {i < cadenaEvolutiva.length - 1 && (
+                      <span className="evo-arrow">→</span>
+                    )}
                   </div>
-                  <div className="compact-row">
-                    {renderEfectividad(tablaEfectividad.x0, "0")}
-                  </div>
-                </>
-              )}
+                ))}
+              </div>
+            </>
+          )}
+
+          {/* MODAL */}
+          {habilidadActiva && (
+            <div
+              className="modal-overlay"
+              onClick={() => setHabilidadActiva(null)}
+            >
+              <div className="modal-card" onClick={(e) => e.stopPropagation()}>
+                <button
+                  className="modal-close"
+                  onClick={() => setHabilidadActiva(null)}
+                >
+                  ✕
+                </button>
+                <h3 className="modal-title">
+                  {habilidades.find((h) => h.nombre === habilidadActiva)
+                    ?.esOculta && (
+                    <span className="hidden-tag" style={{ marginRight: "8px" }}>
+                      OCULTA
+                    </span>
+                  )}
+                  {habilidadActiva.replace(/-/g, " ")}
+                </h3>
+                <p className="modal-desc">
+                  {
+                    habilidades.find((h) => h.nombre === habilidadActiva)
+                      ?.descripcion
+                  }
+                </p>
+              </div>
             </div>
           )}
         </section>
