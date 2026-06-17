@@ -35,31 +35,66 @@ function App() {
   return (
     <div className="app-container">
       <Navbar onSearch={handleSearch} listaMaestra={listaMaestra} />
-      <main className="main-layout">
-        <section className="left-panel">
-          <PokemonCard
-            pokemon={pokemonSeleccionado}
-            esShiny={esShiny}
-            onToggleShiny={() => setEsShiny(!esShiny)}
-          />
-        </section>
-        <section className="right-panel">
-          <PokemonInfo
-            pokemon={pokemonSeleccionado}
-            tablaEfectividad={tablaEfectividad}
-            habilidades={habilidades}
-            habilidadActiva={habilidadActiva}
-            onSelectHabilidad={(nombre) =>
-              setHabilidadActiva(habilidadActiva === nombre ? null : nombre)
-            }
-            cadenaEvolutiva={cadenaEvolutiva}
-          />
-          <AbilityModal
-            habilidades={habilidades}
-            habilidadActiva={habilidadActiva}
-            onClose={() => setHabilidadActiva(null)}
-          />
-        </section>
+      <main
+        className={`main-layout ${!pokemonSeleccionado ? "main-empty" : ""}`}
+      >
+        {!pokemonSeleccionado ? (
+          <div className="empty-state-content">
+            <img
+              src="/iconball.svg"
+              alt="pokeball"
+              className="empty-pokeball"
+            />
+            <div className="empty-text">
+              <h1 className="empty-title">
+                PokeBattle<span>Helper</span>
+              </h1>
+              <p className="empty-subtitle">
+                {"Busca un Pokémon para comenzar..."
+                  .split("")
+                  .map((letra, i) => (
+                    <span
+                      key={i}
+                      style={{
+                        display: "inline-block",
+                        animation: `wave 1.2s ease-in-out infinite`,
+                        animationDelay: `${i * 0.025}s`,
+                      }}
+                    >
+                      {letra === " " ? "\u00A0" : letra}
+                    </span>
+                  ))}
+              </p>
+            </div>
+          </div>
+        ) : (
+          <>
+            <section className="left-panel">
+              <PokemonCard
+                pokemon={pokemonSeleccionado}
+                esShiny={esShiny}
+                onToggleShiny={() => setEsShiny(!esShiny)}
+              />
+            </section>
+            <section className="right-panel">
+              <PokemonInfo
+                pokemon={pokemonSeleccionado}
+                tablaEfectividad={tablaEfectividad}
+                habilidades={habilidades}
+                habilidadActiva={habilidadActiva}
+                onSelectHabilidad={(nombre) =>
+                  setHabilidadActiva(habilidadActiva === nombre ? null : nombre)
+                }
+                cadenaEvolutiva={cadenaEvolutiva}
+              />
+              <AbilityModal
+                habilidades={habilidades}
+                habilidadActiva={habilidadActiva}
+                onClose={() => setHabilidadActiva(null)}
+              />
+            </section>
+          </>
+        )}
       </main>
     </div>
   );

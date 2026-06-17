@@ -2,7 +2,7 @@ import shiny_particle from "../../assets/shiny_particle.png";
 import "./PokemonCard.css";
 
 const PokemonCard = ({ pokemon, esShiny, onToggleShiny }) => {
-  if (!pokemon) return <p>Esperando selección...</p>;
+  if (!pokemon) return null;
 
   return (
     <div className="poke-card">
@@ -15,7 +15,11 @@ const PokemonCard = ({ pokemon, esShiny, onToggleShiny }) => {
           onClick={onToggleShiny}
         >
           {!esShiny && (
-            <img src={shiny_particle} alt="shiny particles" className="shiny-icon-btn" />
+            <img
+              src={shiny_particle}
+              alt="shiny particles"
+              className="shiny-icon-btn"
+            />
           )}
           {esShiny ? "Normal" : "Shiny"}
         </button>

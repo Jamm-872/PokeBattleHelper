@@ -1,7 +1,130 @@
+/* EMPTY STATE */
+.empty-state-content {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 24px;
+  background-color: rgb(36, 36, 36);
+  padding: 28px 40px;
+  border-radius: 16px;
+  animation: popIn-center 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.empty-pokeball {
+  width: 90px;
+  height: 90px;
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3));
+}
+
+.empty-title {
+  font-size: 2rem;
+  font-weight: 900;
+  color: white;
+  margin: 0 0 8px 0;
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.empty-title span {
+  color: white;
+}
+
+.empty-subtitle {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0;
+  letter-spacing: 0.5px;
+}
+
+.empty-pokeball {
+  width: 90px;
+  height: 90px;
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3));
+  animation: pulse-ball 2s ease-in-out infinite;
+}
+
+.empty-subtitle {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0;
+  letter-spacing: 0.5px;
+}
+
+.empty-subtitle span,
+.empty-subtitle {
+  display: inline-block;
+}
+
+@keyframes pulse-ball {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.15);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes wave {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  30% {
+    transform: translateY(-6px);
+  }
+  65% {
+    transform: translateY(0);
+  }
+}
+
+.dots-anim::after {
+  content: "";
+  animation: dots 1.5s steps(3, end) infinite;
+}
+
+.dots-anim {
+  display: inline-block;
+  width: 1.5em;
+}
+
+@keyframes dots {
+  0% {
+    content: ".";
+  }
+  33% {
+    content: "..";
+  }
+  66% {
+    content: "...";
+  }
+}
+
+@keyframes popIn-center {
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.main-layout.main-empty {
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(to right, rgb(253, 56, 97) 50%, white 50%);
+}
+
 .app-container {
   display: flex;
   flex-direction: column;
   height: 100vh;
+  position: relative;
 }
 
 .main-layout {

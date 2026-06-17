@@ -96,13 +96,13 @@
 }
 
 .pokedex-screen-frame {
-  background-color: #f1f1f1; 
+  background-color: #f1f1f1;
   width: 90%;
   max-width: 350px;
-  border-radius: 10px 10px 10px 40px; 
+  border-radius: 10px 10px 10px 40px;
   padding: 20px;
   position: relative;
-  box-shadow: inset -4px -4px 0px #b3b3b3; 
+  box-shadow: inset -4px -4px 0px #b3b3b3;
   margin-bottom: 20px;
 }
 
@@ -169,4 +169,3 @@
     opacity: 1;
   }
 }
-
