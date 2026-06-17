@@ -1,0 +1,146 @@
+.type-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 6px;
+  padding-right: 12px;
+  gap: 8px;
+  border-radius: 18px;
+  min-width: 100px;
+  height: 28px;
+  flex-shrink: 0;
+}
+
+.type-badge-main {
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+  padding-right: 10px;
+  gap: 8px;
+  height: 100%;
+  flex: 1; /* Ocupa el espacio restante */
+  justify-content: flex-start; /* Icono y texto a la izquierda */
+}
+
+.type-icon {
+  width: 20px;
+  height: 20px;
+  filter: drop-shadow(
+    1px 1px 2px rgba(0, 0, 0, 0.3)
+  ); /* Para que resalte el símbolo */
+}
+
+.type-icon-circle {
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.type-text {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: white;
+  line-height: 1;
+}
+
+.badge-with-tag {
+  display: flex;
+  align-items: center;
+  height: 28px;
+  border-radius: 18px; 
+  overflow: hidden; 
+  min-width: 120px;
+  flex-shrink: 0;
+}
+
+.mult-tag-extension {
+  background-color: #56585a;
+  color: #ffffff;
+  font-size: 0.7rem;
+  font-weight: 800;
+  height: 100%;
+  padding: 0 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* --- COLORES DE CADA TIPO --- */
+
+.type-badge.fire,
+.type-badge-main.fire {
+  background-color: #ff4422;
+}
+.type-badge.water,
+.type-badge-main.water {
+  background-color: #3399ff;
+}
+.type-badge.grass,
+.type-badge-main.grass {
+  background-color: #77cc55;
+}
+.type-badge.electric,
+.type-badge-main.electric {
+  background-color: #ffcc33;
+  color: #333;
+}
+.type-badge.ice,
+.type-badge-main.ice {
+  background-color: #66ccff;
+}
+.type-badge.fighting,
+.type-badge-main.fighting {
+  background-color: #bb5544;
+}
+.type-badge.poison,
+.type-badge-main.poison {
+  background-color: #aa5599;
+}
+.type-badge.ground,
+.type-badge-main.ground {
+  background-color: #ddbb55;
+}
+.type-badge.flying,
+.type-badge-main.flying {
+  background-color: #8899ff;
+}
+.type-badge.psychic,
+.type-badge-main.psychic {
+  background-color: #ff5599;
+}
+.type-badge.bug,
+.type-badge-main.bug {
+  background-color: #aabb22;
+}
+.type-badge.rock,
+.type-badge-main.rock {
+  background-color: #bbaa66;
+}
+.type-badge.ghost,
+.type-badge-main.ghost {
+  background-color: #6666bb;
+}
+.type-badge.dragon,
+.type-badge-main.dragon {
+  background-color: #7766ee;
+}
+.type-badge.dark,
+.type-badge-main.dark {
+  background-color: #775544;
+}
+.type-badge.steel,
+.type-badge-main.steel {
+  background-color: #aaaabb;
+}
+.type-badge.fairy,
+.type-badge-main.fairy {
+  background-color: #ee99ee;
+}
+.type-badge.normal,
+.type-badge-main.normal {
+  background-color: #aaaa99;
+}
