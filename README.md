@@ -1,16 +1,57 @@
-# React + Vite
+# PokeBattleHelper
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A React SPA designed to help with Pokémon competitive gameplay. Search any Pokémon and instantly get type matchups, weaknesses, resistances, abilities, and evolution chain — all the data you need for battle preparation.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- 🔍 **Smart search** with autocomplete, Enter key support, and recent searches history
+- 🛡️ **Type matchups** — weaknesses (x2, x4), resistances (x0.5, x0.25) and immunities
+- ⚡ **Abilities** with descriptions in Spanish/English, including hidden abilities
+- 🔄 **Evolution chain** with sprites for each stage
+- ✨ **Shiny toggle** to switch between default and shiny artwork
+- 💾 **localStorage cache** — searched Pokémon are cached for 7 days to avoid redundant API calls
+- 🕐 **Search history** — last 20 searches persist across sessions
+- ⚠️ **Loading and error states** with visual feedback
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- React 19
+- Vite
+- PokéAPI (REST)
+- CSS Modules
+- localStorage
 
-## Expanding the ESLint configuration
+## Project Structure
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+src/
+
+├── components/
+│   ├── Navbar/          — search bar with autocomplete and history
+│   ├── PokemonCard/     — left panel: sprite, stats, shiny toggle
+│   ├── PokemonInfo/     — right panel: types, matchups, abilities, evolutions
+│   ├── TypeBadge/       — reusable type pill component
+│   └── AbilityModal/    — ability description modal
+├── hooks/
+│   ├── usePokemonList   — fetches full Pokémon list on mount
+│   ├── useEfectividades — calculates type effectiveness
+│   ├── useHabilidades   — fetches and manages ability data
+│   └── useEvoluciones   — fetches evolution chain
+└── constants/
+└── tipos.js         — type icon URLs
+
+## Getting Started
+
+```bash
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
+
+# Build for production
+npm run build
+```
+
+## Purpose
+
+Built as a frontend practice project to reinforce React concepts including custom hooks, component architecture, state management, and API integration.
