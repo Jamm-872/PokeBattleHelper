@@ -1,3 +1,30 @@
+/* LOADING STATES */
+.error-text {
+  color: rgb(255, 100, 100);
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%      { transform: translateX(-8px); }
+  40%      { transform: translateX(8px); }
+  60%      { transform: translateX(-5px); }
+  80%      { transform: translateX(5px); }
+}
+
+.loading-spin {
+  animation: spin 1s linear infinite !important;
+}
+
+.error-shake {
+  animation: shake 0.5s ease !important;
+}
+
+
 /* EMPTY STATE */
 .empty-state-content {
   display: flex;
